@@ -20,7 +20,7 @@ type Base struct {
 
 type User struct {
 	Base
-	Name     string `json:"name"`
-	Email    string `json:"email"`
-	Password string `json:"-"`
+	Name         string `json:"name"`
+	Email        string `json:"email"`
+	PasswordHash string `json:"-"`
 }

@@ -7,12 +7,13 @@ import (
 )
 
 var (
-	ApiPort string
-	DbHost  string
-	DbUser  string
-	DbPass  string
-	DbName  string
-	DbPort  string
+	ApiPort    string
+	DbHost     string
+	DbUser     string
+	DbPass     string
+	DbName     string
+	DbPort     string
+	SigningKey []byte
 )
 
 func LoadEnv() {
@@ -25,7 +26,8 @@ func LoadEnv() {
 	DbName = getEnv("POSTGRES_DB", "postgres")
 	DbPort = getEnv("POSTGRES_PORT", "5432")
 
-	// secretKey := getEnv("SECRET_KEY", "secret")
+	secretKey := getEnv("SECRET_KEY", "secret")
+	SigningKey = []byte(secretKey)
 }
 
 func getEnv(key string, fallback string) string {
