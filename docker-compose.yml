@@ -8,3 +8,19 @@ services:
     tty: true
     volumes:
       - .:/go/src/jwt-tutorial
+    depends_on:
+      - db
+  db:
+    container_name: test_db
+    image: postgres:13.3-alpine
+    volumes: 
+      - dbdata:/var/lib/postgresql/data
+    env_file:
+      - .env
+  adminer:
+    container_name: adminer
+    image: adminer:4.7.5
+    ports:
+      - 8080:8080
+volumes:
+  dbdata: null
