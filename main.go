@@ -1,13 +1,17 @@
 package main
 
 import (
-	"jwt-tutorial/auth"
+	"fmt"
+	"jwt-tutorial/db"
+	"jwt-tutorial/utils"
 
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
 	r := gin.Default()
+	utils.LoadEnv()
+	db.InitDB()
 
 	r.GET("/", func(c *gin.Context) {
 		c.JSON(200, gin.H{
@@ -15,22 +19,5 @@ func main() {
 		})
 	})
 
-	// func Private(){
-	// 	post := &post{
-	// 		Title: "VGolangとGoogle Cloud Vision APIで画像から文字認識するCLIを速攻でつくる",
-	// 		Tag:   "Go",
-	// 		URL:   "https://qiita.com/po3rin/items/bf439424e38757c1e69b",
-	// 	}
-	// 	json.NewEncode(w).Encode(post)
-	// }
-
-	r.GET("/auth", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"token": auth.GenerateToken,
-		})
-	})
-
-	//r.GET("/private", auth.JwtMiddleware.)
-
-	r.Run(":8000")
+	r.Run(fmt.Sprintf(":%s", utils.ApiPort))
 }
